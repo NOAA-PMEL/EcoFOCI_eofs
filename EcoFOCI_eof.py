@@ -86,6 +86,9 @@ parser.add_argument('--eof_num',
 parser.add_argument('--epic', 
     action="store_true", 
     help='assume EPIC time format')
+parser.add_argument('--plots', 
+    action="store_true", 
+    help='output some basic plots - TODO')
 
 args = parser.parse_args()
 
@@ -227,6 +230,7 @@ if args.epic:
         ncinstance.close()
 
 
-
-
+if args.plots:
+    """TODO"""
+    pass
 
