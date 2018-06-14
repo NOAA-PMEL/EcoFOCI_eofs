@@ -4,12 +4,14 @@
 Purpose:
   Run Emperical Orthogonal Function Analyisis on Arbitrary EcoFOCI Timeseries data
 
-EPIC files:
-
-CF files:
+Input:
+    EPIC files:
+    TODO: CF files
 
 Output:
-
+    EPIC EOF files (netcdf)
+    Summary file (txt)
+    TODO: Plots of EOF vs original Timeseries
 
 Additional requirements for this example:
 
@@ -21,7 +23,12 @@ Additional requirements for this example:
     - http://ajdawson.github.io/eofs/ 
     - http://doi.org/10.5334/jors.122 (journal article)
 
+Addtional Notes:
+    Tested on python=3.6
+    Print statements cause fail on 2.x (unless future import)
+
 """
+from __future__ import print_function
 
 #System Stack
 import argparse
@@ -30,12 +37,14 @@ import sys
 
 #Science Stack
 from eofs.standard import Eof
-import numpy
+import numpy as np
+from netCDF4 import Dataset
 
 #User defined Stack
 from io_utils.ConfigParserLocal import get_config
 from io_utils.EcoFOCI_netCDF_write import NetCDF_Create_Timeseries
 from calc.EPIC2Datetime import EPIC2Datetime, get_UDUNITS, Datetime2EPIC
+
 
 __author__   = 'Shaun Bell'
 __email__    = 'shaun.bell@noaa.gov'
@@ -62,7 +71,7 @@ parser.add_argument('config_file_name',
     help='full path to config file - eof_config.yaml')
 parser.add_argument('-o','--outfile', 
     type=str,
-    default='eof_results',
+    default='test/eof_results',
     help='name of output file (run-name)')
 parser.add_argument('-s', '--start_date',
     type=str, 
@@ -72,7 +81,7 @@ parser.add_argument('-e', '--end_date',
     help='yyyymmddhhmmss')
 parser.add_argument('--eof_num',
     type=int,
-    default=1e35,
+    default=10000,
     help='number of eofs. default is all (arbitrarily large number)')
 parser.add_argument('--epic', 
     action="store_true", 
