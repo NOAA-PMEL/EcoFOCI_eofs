@@ -71,8 +71,8 @@ parser.add_argument('config_file_name',
     help='full path to config file - eof_config.yaml')
 parser.add_argument('-o','--outfile', 
     type=str,
-    default='test/eof_results',
-    help='name of output file (run-name)')
+    default='data/eof_results',
+    help='name of output file data/{run-name} defaults to data/eof_results')
 parser.add_argument('-s', '--start_date',
     type=str, 
     help='yyyymmddhhmmss')
