@@ -243,7 +243,7 @@ if args.plots:
 
     plt.legend()
     fig.set_size_inches( (22, 8.5) )
-    plt.savefig('images/'+"{0}_eof{1}.nc".format(args.outfile,str(index+1).zfill(3))+'.png',bbox_inches='tight', dpi=(300))
+    plt.savefig("{0}_eof{1}".format(args.outfile,str(index+1).zfill(3))+'.png',bbox_inches='tight', dpi=(300))
 
     fig = plt.figure()
     ax = plt.subplot(111)
@@ -253,4 +253,4 @@ if args.plots:
 
     plt.legend()
     fig.set_size_inches( (22, 8.5) )
-    plt.savefig('images/'+"{0}_eofcov{1}.nc".format(args.outfile,str(index+1).zfill(3))+'.png',bbox_inches='tight', dpi=(300))
+    plt.savefig("{0}_eofcov{1}".format(args.outfile,str(index+1).zfill(3))+'.png',bbox_inches='tight', dpi=(300))
