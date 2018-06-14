@@ -113,9 +113,15 @@ if args.varname in ['u_1205']:
     altvarname = 'U_320'
 elif args.varname in ['U_320']:
     altvarname = 'u_1205'
+elif args.varname in ['wu']:
+    args.varname = 'U_320'
+    altvarname = 'u_1205'
 elif args.varname in ['v_1206']:
     altvarname = 'V_321'
 elif args.varname in ['V_321']:
+    altvarname = 'v_1206'
+elif args.varname in ['wv']:
+    args.varname = 'V_321'
     altvarname = 'v_1206'
 else:
     altvarname = ''

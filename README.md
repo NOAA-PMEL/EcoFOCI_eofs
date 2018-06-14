@@ -42,6 +42,8 @@ optional arguments:
   --eof_num EOF_NUM     number of eofs. default is all (arbitrarily large
                         number)
   --epic                assume EPIC time format
+  --plots               output some basic plots - TODO
+  --summary             output summary only
 ```
 
 #### Example
@@ -61,3 +63,12 @@ EcoFOCI_eof.py test/14ck9a_curr_brg_subset_f35.point U_320 config/eof_config.yam
 ```
 
 is the same as the above but only returning the first EOF and naming the run 'test'
+
+
+
+PJS
+---
+
+progdir=/full/path/to/dir/
+
+python ${progdir}EcoFOCI_eof.py ${progdir}data/14ck9a_curr_brg_subset_f35.pavlof.point U_320 ${progdir}config/eof_config.yaml -s 20141005000000 -e 20150501000000 --epic -o eof_results
