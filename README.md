@@ -7,9 +7,9 @@ Input files are EPIC standard netCDF files.  Output files are EPIC standard netC
 Tested on python 3.6, 2.7
 
 # Based on python EOF analysis package:
-http://ajdawson.github.io/eofs/index.html
-https://github.com/ajdawson/eofs
-http://doi.org/10.5334/jors.122 - journal article
+http://ajdawson.github.io/eofs/index.html   
+https://github.com/ajdawson/eofs   
+http://doi.org/10.5334/jors.122 - journal article   
 
 Many results are not relevant here for these purposes from this package and are available as analysis extensions.
 
@@ -70,5 +70,6 @@ PJS
 ---
 
 progdir=/full/path/to/dir/
+pointer=14ck9a_curr_brg_subset_f35.pavlof.point
 
-python ${progdir}EcoFOCI_eof.py ${progdir}data/14ck9a_curr_brg_subset_f35.pavlof.point U_320 ${progdir}config/eof_config.yaml -s 20141005000000 -e 20150501000000 --epic -o eof_results
+python ${progdir}EcoFOCI_eof.py ${pointer} U_320 ${progdir}config/eof_config.yaml -s 20141005000000 -e 20150501000000 --epic -o eof_results
