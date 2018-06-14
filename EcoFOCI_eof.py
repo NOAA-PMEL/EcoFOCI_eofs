@@ -89,6 +89,9 @@ parser.add_argument('--epic',
 parser.add_argument('--plots', 
     action="store_true", 
     help='output some basic plots - TODO')
+parser.add_argument('--summary', 
+    action="store_true", 
+    help='output summary only')
 
 args = parser.parse_args()
 
@@ -171,6 +174,8 @@ outfile = args.outfile+'.txt'
 print("EOF Results:", file=open(outfile,"w"))
 print("------------", file=open(outfile,"a"))
 
+print("File path: {}".format("/".join(filename.split('/')[:-1])),
+    file=open(outfile,"a"))
 for key,filename in (files.items()):
     print("Files input: {}".format(filename.split('/')[-1]),
         file=open(outfile,"a"))
@@ -185,8 +190,6 @@ print("eof file names:", file=open(outfile,"a"))
 print("---------------", file=open(outfile,"a"))
 print("\n",            file=open(outfile,"a"))
 
-print("File path: {}".format("/".join(filename.split('/')[:-1])),
-    file=open(outfile,"a"))
 for index in range(0,eofs.shape[0],1):
     print("File output: {0}_eof{1}.nc".format(args.outfile,str(index+1).zfill(3)),
         file=open(outfile,"a"))
@@ -197,14 +200,14 @@ print("---------------------------------", file=open(outfile,"a"))
 print("\t".join([str(x) for x in eigval]), file=open(outfile,"a"))
 print("\n\n", file=open(outfile,"a"))
  
-print("Total Variance explained by each EOF mode: (0 to 1)", file=open(outfile,"a"))
+print("Total Variance fraction for each EOF mode: (0 to 1)", file=open(outfile,"a"))
 print("---------------------------------------------------", file=open(outfile,"a"))
 print("\t".join([str(x) for x in varfrac]), file=open(outfile,"a"))
 print("\n\n", file=open(outfile,"a"))
 
 """---------------------------------NetCDF-----------------------------------"""
 ### Create EOF nc files
-if args.epic:
+if args.epic and not args.summary:
 
     # From config file, get variable attribute definitions
     EPIC_VARS_dict = get_config(args.config_file_name,'yaml')
@@ -231,6 +234,22 @@ if args.epic:
 
 
 if args.plots:
-    """TODO"""
-    pass
+    fig = plt.figure()
+    ax = plt.subplot(111)
 
+    for index in range(0,5,1):
+        plt.plot(dt_from_epic[dt_index],eofs[index],label='EOF mode:{}'.format(index+1))
+
+    plt.legend()
+    fig.set_size_inches( (22, 8.5) )
+    plt.savefig('images/'+"{0}_eof{1}.nc".format(args.outfile,str(index+1).zfill(3))+'.png',bbox_inches='tight', dpi=(300))
+
+    fig = plt.figure()
+    ax = plt.subplot(111)
+
+    for index in range(0,5,1):
+        plt.plot(dt_from_epic[dt_index],eofcov[index],label='EOF Cov. mode:{}'.format(index+1))
+
+    plt.legend()
+    fig.set_size_inches( (22, 8.5) )
+    plt.savefig('images/'+"{0}_eofcov{1}.nc".format(args.outfile,str(index+1).zfill(3))+'.png',bbox_inches='tight', dpi=(300))
