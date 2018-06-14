@@ -19,6 +19,7 @@ Additional requirements for this example:
   eofs: package developed and available:
     - https://github.com/ajdawson/eofs
     - http://ajdawson.github.io/eofs/ 
+    - http://doi.org/10.5334/jors.122 (journal article)
 
 """
 
@@ -32,6 +33,8 @@ from eofs.standard import Eof
 import numpy
 
 #User defined Stack
+from io_utils.ConfigParserLocal import get_config
+from io_utils.EcoFOCI_netCDF_write import NetCDF_Create_Timeseries
 from calc.EPIC2Datetime import EPIC2Datetime, get_UDUNITS, Datetime2EPIC
 
 __author__   = 'Shaun Bell'
@@ -53,10 +56,14 @@ parser.add_argument('varname',
     metavar='varname',
     type=str,
     help='name of variable, may be EPIC name')
+parser.add_argument('config_file_name', 
+    metavar='config_file_name', 
+    type=str, 
+    help='full path to config file - eof_config.yaml')
 parser.add_argument('-o','--outfile', 
     type=str,
-    default='eof_results.txt',
-    help='name of output file ')
+    default='eof_results',
+    help='name of output file (run-name)')
 parser.add_argument('-s', '--start_date',
     type=str, 
     help='yyyymmddhhmmss')
@@ -142,51 +149,73 @@ solver = Eof(eof_data, center=False)
 eigval = solver.eigenvalues(neigs=args.eof_num)
 varfrac = solver.varianceFraction(neigs=args.eof_num)
 eofs = solver.eofs(neofs=args.eof_num)
+eofcorr = solver.eofsAsCorrelation(neofs=args.eof_num)
+eofcov = solver.eofsAsCovariance(neofs=args.eof_num)
 
 
 """---------------------------------Report-----------------------------------"""
 ### Print Select Results to file
-
-print("EOF Results:", file=open(args.outfile, "w"))
-print("------------", file=open(args.outfile, "a"))
+outfile = args.outfile+'.txt'
+print("EOF Results:", file=open(outfile,"w"))
+print("------------", file=open(outfile,"a"))
 
 for key,filename in (files.items()):
     print("Files input: {}".format(filename.split('/')[-1]),
-        file=open(args.outfile, "a"))
+        file=open(outfile,"a"))
 
-print("\n\n", file=open(args.outfile, "a"))
-print("Variables used: ", file=open(args.outfile, "a"))
-print("----------------", file=open(args.outfile, "a"))
-print("{}, {}".format(args.varname,altvarname), file=open(args.outfile, "a"))
-print("\n\n", file=open(args.outfile, "a"))
+print("\n\n", file=open(outfile,"a"))
+print("Variables used: ", file=open(outfile,"a"))
+print("----------------", file=open(outfile,"a"))
+print("{}, {}".format(args.varname,altvarname), file=open(outfile,"a"))
+print("\n\n", file=open(outfile,"a"))
 
-print("eof file names:", file=open(args.outfile, "a"))
-print("---------------", file=open(args.outfile, "a"))
-print("\n",            file=open(args.outfile, "a"))
+print("eof file names:", file=open(outfile,"a"))
+print("---------------", file=open(outfile,"a"))
+print("\n",            file=open(outfile,"a"))
 
 print("File path: {}".format("/".join(filename.split('/')[:-1])),
-    file=open(args.outfile, "a"))
-for index in range(0,eofs.shape[0]+1,1):
-    print("File output: {1}eof_{2}.nc".format(args.outfile,str(index).zfill(3)),
-        file=open(args.outfile, "a"))
-print("\n\n",            file=open(args.outfile, "a"))
+    file=open(outfile,"a"))
+for index in range(0,eofs.shape[0],1):
+    print("File output: {0}_eof{1}.nc".format(args.outfile,str(index+1).zfill(3)),
+        file=open(outfile,"a"))
+print("\n\n",            file=open(outfile,"a"))
 
-print("EigenValues: (largest to smallest)", file=open(args.outfile, "a"))
-print("---------------------------------", file=open(args.outfile, "a"))
-print("\t".join([str(x) for x in eigval]), file=open(args.outfile, "a"))
-print("\n\n", file=open(args.outfile, "a"))
+print("EigenValues: (largest to smallest)", file=open(outfile,"a"))
+print("---------------------------------", file=open(outfile,"a"))
+print("\t".join([str(x) for x in eigval]), file=open(outfile,"a"))
+print("\n\n", file=open(outfile,"a"))
  
-print("Total Variance explained by each EOF mode: (0 to 1)", file=open(args.outfile, "a"))
-print("---------------------------------------------------", file=open(args.outfile, "a"))
-print("\t".join([str(x) for x in varfrac]), file=open(args.outfile, "a"))
-print("\n\n", file=open(args.outfile, "a"))
+print("Total Variance explained by each EOF mode: (0 to 1)", file=open(outfile,"a"))
+print("---------------------------------------------------", file=open(outfile,"a"))
+print("\t".join([str(x) for x in varfrac]), file=open(outfile,"a"))
+print("\n\n", file=open(outfile,"a"))
 
+"""---------------------------------NetCDF-----------------------------------"""
 ### Create EOF nc files
+if args.epic:
 
+    # From config file, get variable attribute definitions
+    EPIC_VARS_dict = get_config(args.config_file_name,'yaml')
 
+    for index in range(0,eofs.shape[0],1):
+        print("Creating EPIC file for {0}_eof{1}.nc".format(args.outfile,str(index+1).zfill(3)))
 
+        # Link data to a dictionary to match variable names
+        data_dic = {'EOF_6000':eofs[index],
+                    'EOFcorr_6002':eofcorr[index],
+                    'EOFcov_6003':eofcov[index]}
 
-
+        time1,time2 = np.array(Datetime2EPIC(list(dt_from_epic[dt_index])), dtype='f8')
+        ncinstance = NetCDF_Create_Timeseries(
+            savefile="{0}_eof{1}.nc".format(args.outfile,str(index+1).zfill(3)))
+        ncinstance.file_create()
+        ncinstance.sbeglobal_atts(History='Run name: {}'.format(args.outfile), 
+                                  Software='EcoFOCI_eof.py ' + __version__)
+        ncinstance.dimension_init(time_len=len(time1))
+        ncinstance.variable_init(EPIC_VARS_dict)
+        ncinstance.add_coord_data(time1=time1, time2=time2)
+        ncinstance.add_data(EPIC_VARS_dict,data_dic=data_dic)
+        ncinstance.close()
 
 
 

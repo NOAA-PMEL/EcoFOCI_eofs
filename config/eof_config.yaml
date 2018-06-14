@@ -1,0 +1,22 @@
+---
+EOF_6000:
+  EPIC_KEY: 6000
+  fortran: f10.2
+  generic_name: eof
+  longname: Unscaled EOF
+  name: EOF
+  units: ''
+EOFcorr_6002:
+  EPIC_KEY: 6002
+  fortran: f10.2
+  generic_name: eofcorr
+  longname: EOFs as correlation
+  name: EOFcorr
+  units: ''
+EOFcov_6003:
+  EPIC_KEY: 6003
+  fortran: f10.2
+  generic_name: eofcov
+  longname: EOFs as covariance
+  name: EOFcov
+  units: ''
