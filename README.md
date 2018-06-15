@@ -7,6 +7,8 @@ Input files are EPIC standard netCDF files.  Output files are EPIC standard netC
 Tested on python 3.6, 2.7
 
 # Based on python EOF analysis package:
+*** eofs V1.3.0***
+
 http://ajdawson.github.io/eofs/index.html   
 https://github.com/ajdawson/eofs   
 http://doi.org/10.5334/jors.122 - journal article   

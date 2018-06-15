@@ -209,19 +209,19 @@ print("\n\n",            file=open(outfile,"a"))
 
 print("EOFs :", file=open(outfile,"a"))
 print("-----", file=open(outfile,"a"))
-print('\n'.join(["Mode {}:".format(y)+' '.join(['{:6.2f}'.format(item) for item in row]) 
+print('\n'.join(["Mode {}:".format(y+1)+' '.join(['{:6.2f}'.format(item) for item in row]) 
       for y,row in enumerate(eofs)]), file=open(outfile,"a"))
 print("\n\n", file=open(outfile,"a"))
  
 print("EOF as Covariance :", file=open(outfile,"a"))
 print("------------------", file=open(outfile,"a"))
-print('\n'.join(["Mode {}:".format(y)+' '.join(['{:6.2f}'.format(item) for item in row]) 
+print('\n'.join(["Mode {}:".format(y+1)+' '.join(['{:6.2f}'.format(item) for item in row]) 
       for y,row in enumerate(eofcov)]), file=open(outfile,"a"))
 print("\n\n", file=open(outfile,"a"))
 
 print("EOFs as Correlation :", file=open(outfile,"a"))
 print("--------------------", file=open(outfile,"a"))
-print('\n'.join(["Mode {}:".format(y)+' '.join(['{:6.2f}'.format(item) for item in row]) 
+print('\n'.join(["Mode {}:".format(y+1)+' '.join(['{:6.2f}'.format(item) for item in row]) 
       for y,row in enumerate(eofcorr)]), file=open(outfile,"a"))
 print("\n\n", file=open(outfile,"a"))
 
