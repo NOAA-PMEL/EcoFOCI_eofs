@@ -274,7 +274,7 @@ if args.plots:
     fig.set_size_inches( (22, 8.5) )
     plt.savefig("{0}_pcs{1}".format(args.outfile,str(index+1).zfill(3))+'.png',bbox_inches='tight', dpi=(300))
 
-    #plot eigenvectors / EOF maps
+    #plot eigenvectors / EOF maps as corr
     fig = plt.figure()
     ax = plt.subplot(111)
 
@@ -286,3 +286,29 @@ if args.plots:
     plt.legend()
     fig.set_size_inches( (4.25, 11) )
     plt.savefig("{0}_eofcor{1}".format(args.outfile,str(index+1).zfill(3))+'.png',bbox_inches='tight', dpi=(300))
+
+    #plot eigenvectors / EOF maps as cov
+    fig = plt.figure()
+    ax = plt.subplot(111)
+
+    for index in range(0,nmax,1):
+        plt.plot(eofcov[index],range(0,len(eof_data[1])),
+            label='EOF Cov. mode:{}'.format(index+1))
+    
+    ax.invert_yaxis()
+    plt.legend()
+    fig.set_size_inches( (4.25, 11) )
+    plt.savefig("{0}_eofcov{1}".format(args.outfile,str(index+1).zfill(3))+'.png',bbox_inches='tight', dpi=(300))
+
+    #plot eigenvectors / EOF maps 
+    fig = plt.figure()
+    ax = plt.subplot(111)
+
+    for index in range(0,nmax,1):
+        plt.plot(eofs[index],range(0,len(eof_data[1])),
+            label='EOFs mode:{}'.format(index+1))
+    
+    ax.invert_yaxis()
+    plt.legend()
+    fig.set_size_inches( (4.25, 11) )
+    plt.savefig("{0}_eofs{1}".format(args.outfile,str(index+1).zfill(3))+'.png',bbox_inches='tight', dpi=(300))
