@@ -69,7 +69,7 @@ is the same as the above but only returning the first EOF and naming the run 'te
 PJS
 ---
 
-progdir=/full/path/to/dir/
+progdir=/full/path/to/dir/   
 pointer=14ck9a_curr_brg_subset_f35.pavlof.point
 
 python ${progdir}EcoFOCI_eof.py ${pointer} U_320 ${progdir}config/eof_config.yaml -s 20141005000000 -e 20150501000000 --epic -o eof_results

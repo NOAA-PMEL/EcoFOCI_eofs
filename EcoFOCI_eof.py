@@ -17,15 +17,19 @@ Additional requirements for this example:
 
     * netCDF4 (http://unidata.github.io/netcdf4-python/)
     * matplotlib (http://matplotlib.org/)
+    * eofs
 
   eofs: package developed and available:
     - https://github.com/ajdawson/eofs
     - http://ajdawson.github.io/eofs/ 
     - http://doi.org/10.5334/jors.122 (journal article)
 
+    - developed using V 1.3.0
+
 Addtional Notes:
     Tested on python=3.6
     Print statements cause fail on 2.x (unless future import)
+
 
 """
 from __future__ import print_function
@@ -36,7 +40,7 @@ import datetime
 import sys
 
 #Science Stack
-from eofs.standard import Eof
+from eofs.standard import Eof 
 import numpy as np
 from netCDF4 import Dataset
 import matplotlib.pyplot as plt
@@ -203,20 +207,20 @@ for index in range(0,eofs.shape[0],1):
         file=open(outfile,"a"))
 print("\n\n",            file=open(outfile,"a"))
 
-print("EOFs (unscaled):", file=open(outfile,"a"))
-print("----------------", file=open(outfile,"a"))
+print("EOFs :", file=open(outfile,"a"))
+print("-----", file=open(outfile,"a"))
 print('\n'.join(["Mode {}:".format(y)+' '.join(['{:6.2f}'.format(item) for item in row]) 
       for y,row in enumerate(eofs)]), file=open(outfile,"a"))
 print("\n\n", file=open(outfile,"a"))
  
-print("EOF as Covariance (unscaled):", file=open(outfile,"a"))
-print("-----------------------------", file=open(outfile,"a"))
+print("EOF as Covariance :", file=open(outfile,"a"))
+print("------------------", file=open(outfile,"a"))
 print('\n'.join(["Mode {}:".format(y)+' '.join(['{:6.2f}'.format(item) for item in row]) 
       for y,row in enumerate(eofcov)]), file=open(outfile,"a"))
 print("\n\n", file=open(outfile,"a"))
 
-print("EOFs as Correlation (unscaled):", file=open(outfile,"a"))
-print("-------------------------------", file=open(outfile,"a"))
+print("EOFs as Correlation :", file=open(outfile,"a"))
+print("--------------------", file=open(outfile,"a"))
 print('\n'.join(["Mode {}:".format(y)+' '.join(['{:6.2f}'.format(item) for item in row]) 
       for y,row in enumerate(eofcorr)]), file=open(outfile,"a"))
 print("\n\n", file=open(outfile,"a"))
