@@ -163,11 +163,12 @@ if args.epic:
                 sys.exit("Exiting: timeseries have different lengths")
 
     #transpose so time is first dimension
-    #eof_data = eof_data.T
+    eof_data = eof_data.T
 
 # Crete an EOF solver to do the EOF analysis.  No weights
 # First dimension is assumed time by program... not true if timseries is of interest, 
 solver = Eof(eof_data, center=False)
+pcs = solver.pcs(npcs=args.eof_num)
 eigval = solver.eigenvalues(neigs=args.eof_num)
 varfrac = solver.varianceFraction(neigs=args.eof_num)
 eofs = solver.eofs(neofs=args.eof_num)
@@ -193,7 +194,7 @@ print("----------------", file=open(outfile,"a"))
 print("{}, {}".format(args.varname,altvarname), file=open(outfile,"a"))
 print("\n\n", file=open(outfile,"a"))
 
-print("eof file names:", file=open(outfile,"a"))
+print("mode file names:", file=open(outfile,"a"))
 print("---------------", file=open(outfile,"a"))
 print("\n",            file=open(outfile,"a"))
 
@@ -201,6 +202,24 @@ for index in range(0,eofs.shape[0],1):
     print("File output: {0}_eof{1}.nc".format(args.outfile,str(index+1).zfill(3)),
         file=open(outfile,"a"))
 print("\n\n",            file=open(outfile,"a"))
+
+print("EOFs (unscaled):", file=open(outfile,"a"))
+print("----------------", file=open(outfile,"a"))
+print('\n'.join([' '.join(['{:06.2f}'.format(item) for item in row]) 
+      for row in eofs]), file=open(outfile,"a"))
+print("\n\n", file=open(outfile,"a"))
+ 
+print("EOF as Covariance (unscaled):", file=open(outfile,"a"))
+print("-----------------------------", file=open(outfile,"a"))
+print('\n'.join([' '.join(['{:06.2f}'.format(item) for item in row]) 
+      for row in eofcov]), file=open(outfile,"a"))
+print("\n\n", file=open(outfile,"a"))
+
+print("EOFs as Correlation (unscaled):", file=open(outfile,"a"))
+print("-------------------------------", file=open(outfile,"a"))
+print('\n'.join([' '.join(['{:06.2f}'.format(item) for item in row]) 
+      for row in eofcorr]), file=open(outfile,"a"))
+print("\n\n", file=open(outfile,"a"))
 
 print("EigenValues: (largest to smallest)", file=open(outfile,"a"))
 print("---------------------------------", file=open(outfile,"a"))
@@ -223,9 +242,7 @@ if args.epic and not args.summary:
         print("Creating EPIC file for {0}_eof{1}.nc".format(args.outfile,str(index+1).zfill(3)))
 
         # Link data to a dictionary to match variable names
-        data_dic = {'EOF_6000':eofs[index],
-                    'EOFcorr_6002':eofcorr[index],
-                    'EOFcov_6003':eofcov[index]}
+        data_dic = {'PCS_6001':pcs.T[index]}
 
         time1,time2 = np.array(Datetime2EPIC(list(dt_from_epic[dt_index])), dtype='f8')
         ncinstance = NetCDF_Create_Timeseries(
@@ -241,22 +258,31 @@ if args.epic and not args.summary:
 
 
 if args.plots:
+    if args.eof_num < 5:
+        nmax = args.eof_num
+    else:
+        nmax = 5
+    
+    #plot PCs
     fig = plt.figure()
     ax = plt.subplot(111)
 
-    for index in range(0,5,1):
-        plt.plot(dt_from_epic[dt_index],eofs[index],label='EOF mode:{}'.format(index+1))
+    for index in range(0,nmax,1):
+        plt.plot(dt_from_epic[dt_index],pcs.T[index],label='PC mode:{}'.format(index+1))
 
     plt.legend()
     fig.set_size_inches( (22, 8.5) )
-    plt.savefig("{0}_eof{1}".format(args.outfile,str(index+1).zfill(3))+'.png',bbox_inches='tight', dpi=(300))
+    plt.savefig("{0}_pcs{1}".format(args.outfile,str(index+1).zfill(3))+'.png',bbox_inches='tight', dpi=(300))
 
+    #plot eigenvectors / EOF maps
     fig = plt.figure()
     ax = plt.subplot(111)
 
-    for index in range(0,5,1):
-        plt.plot(dt_from_epic[dt_index],eofcov[index],label='EOF Cov. mode:{}'.format(index+1))
-
+    for index in range(0,nmax,1):
+        plt.plot(eofcorr[index],range(0,len(eof_data[1])),
+            label='EOF Corr. mode:{}'.format(index+1))
+    
+    ax.invert_yaxis()
     plt.legend()
-    fig.set_size_inches( (22, 8.5) )
-    plt.savefig("{0}_eofcov{1}".format(args.outfile,str(index+1).zfill(3))+'.png',bbox_inches='tight', dpi=(300))
+    fig.set_size_inches( (4.25, 11) )
+    plt.savefig("{0}_eofcor{1}".format(args.outfile,str(index+1).zfill(3))+'.png',bbox_inches='tight', dpi=(300))
