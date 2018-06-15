@@ -205,20 +205,20 @@ print("\n\n",            file=open(outfile,"a"))
 
 print("EOFs (unscaled):", file=open(outfile,"a"))
 print("----------------", file=open(outfile,"a"))
-print('\n'.join([' '.join(['{:06.2f}'.format(item) for item in row]) 
-      for row in eofs]), file=open(outfile,"a"))
+print('\n'.join(["Mode {}:".format(y)+' '.join(['{:6.2f}'.format(item) for item in row]) 
+      for y,row in enumerate(eofs)]), file=open(outfile,"a"))
 print("\n\n", file=open(outfile,"a"))
  
 print("EOF as Covariance (unscaled):", file=open(outfile,"a"))
 print("-----------------------------", file=open(outfile,"a"))
-print('\n'.join([' '.join(['{:06.2f}'.format(item) for item in row]) 
-      for row in eofcov]), file=open(outfile,"a"))
+print('\n'.join(["Mode {}:".format(y)+' '.join(['{:6.2f}'.format(item) for item in row]) 
+      for y,row in enumerate(eofcov)]), file=open(outfile,"a"))
 print("\n\n", file=open(outfile,"a"))
 
 print("EOFs as Correlation (unscaled):", file=open(outfile,"a"))
 print("-------------------------------", file=open(outfile,"a"))
-print('\n'.join([' '.join(['{:06.2f}'.format(item) for item in row]) 
-      for row in eofcorr]), file=open(outfile,"a"))
+print('\n'.join(["Mode {}:".format(y)+' '.join(['{:6.2f}'.format(item) for item in row]) 
+      for y,row in enumerate(eofcorr)]), file=open(outfile,"a"))
 print("\n\n", file=open(outfile,"a"))
 
 print("EigenValues: (largest to smallest)", file=open(outfile,"a"))
@@ -228,7 +228,8 @@ print("\n\n", file=open(outfile,"a"))
  
 print("Total Variance fraction for each EOF mode: (0 to 1)", file=open(outfile,"a"))
 print("---------------------------------------------------", file=open(outfile,"a"))
-print("\t".join([str(x) for x in varfrac]), file=open(outfile,"a"))
+print("\n".join(["Mode {y}:{x}".format(y=y,x=x) for y,x in enumerate(varfrac)]),
+                                           file=open(outfile,"a"))
 print("\n\n", file=open(outfile,"a"))
 
 """---------------------------------NetCDF-----------------------------------"""
