@@ -141,6 +141,8 @@ with open(args.pfile) as fp:
 ### EPIC Flavored time word
 if args.epic:
     for key,filename in (files.items()):
+        print("Reading file for {}".format(filename))
+
         ncin = Dataset(str(filename), 'r')
         try:
             data = ncin.variables[args.varname][:,0,0,0]
@@ -171,6 +173,7 @@ if args.epic:
 
 # Crete an EOF solver to do the EOF analysis.  No weights
 # First dimension is assumed time by program... not true if timseries is of interest, 
+print("Solving for n={} modes".format(args.eof_num))
 solver = Eof(eof_data, center=False)
 pcs = solver.pcs(npcs=args.eof_num)
 eigval = solver.eigenvalues(neigs=args.eof_num)
