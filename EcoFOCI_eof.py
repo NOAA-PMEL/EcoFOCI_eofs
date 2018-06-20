@@ -201,6 +201,11 @@ print("----------------", file=open(outfile,"a"))
 print("{}, {}".format(args.varname,altvarname), file=open(outfile,"a"))
 print("\n\n", file=open(outfile,"a"))
 
+print("Start/Stop Date: ", file=open(outfile,"a"))
+print("-----------------", file=open(outfile,"a"))
+print("{}, {}".format(start_date,end_date), file=open(outfile,"a"))
+print("\n\n", file=open(outfile,"a"))
+
 print("mode file names:", file=open(outfile,"a"))
 print("---------------", file=open(outfile,"a"))
 print("\n",            file=open(outfile,"a"))
