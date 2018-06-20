@@ -97,6 +97,9 @@ parser.add_argument('--plots',
 parser.add_argument('--summary', 
     action="store_true", 
     help='output summary only')
+parser.add_argument('--normalize', 
+    action="store_true", 
+    help='normalize each timeseries by dividing by the standard deviation')
 
 args = parser.parse_args()
 
@@ -168,6 +171,9 @@ if args.epic:
             except ValueError:
                 sys.exit("Exiting: timeseries have different lengths")
 
+        if args.normalize:
+            eof_data = eof_data / np.std(eof_data, axis=0)
+            
     #transpose so time is first dimension
     eof_data = eof_data.T
 
