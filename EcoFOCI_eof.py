@@ -221,6 +221,16 @@ for index in range(0,eofs.shape[0],1):
         file=open(outfile,"a"))
 print("\n\n",            file=open(outfile,"a"))
 
+
+print("Timeseries Normalized by:", file=open(outfile,"a"))
+print("-------------------------", file=open(outfile,"a"))
+if args.normalize:
+    print(",\t".join([str(x) for x in np.std(eof_data, axis=0)]), file=open(outfile,"a"))
+else:
+    print("***Timeseries not normalized***")
+print("\n\n",            file=open(outfile,"a"))
+
+
 print("EOFs :", file=open(outfile,"a"))
 print("-----", file=open(outfile,"a"))
 print('\n'.join(["Mode {}:".format(y+1)+' '.join(['{:6.2f}'.format(item) for item in row]) 
@@ -241,7 +251,7 @@ print("\n\n", file=open(outfile,"a"))
 
 print("EigenValues: (largest to smallest)", file=open(outfile,"a"))
 print("---------------------------------", file=open(outfile,"a"))
-print("\t".join([str(x) for x in eigval]), file=open(outfile,"a"))
+print(",\t".join([str(x) for x in eigval]), file=open(outfile,"a"))
 print("\n\n", file=open(outfile,"a"))
  
 print("Total Variance fraction for each EOF mode: (0 to 1)", file=open(outfile,"a"))
