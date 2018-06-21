@@ -171,11 +171,12 @@ if args.epic:
             except ValueError:
                 sys.exit("Exiting: timeseries have different lengths")
 
-        if args.normalize:
-            eof_data = eof_data / np.std(eof_data, axis=0)
-            
-    #transpose so time is first dimension
-    eof_data = eof_data.T
+    if args.normalize:
+        eof_data_std = np.std(eof_data, axis=1)
+        eof_data = eof_data.T / np.std(eof_data, axis=1)
+    else:
+        #transpose so time is first dimension
+        eof_data = eof_data.T
 
 # Crete an EOF solver to do the EOF analysis.  No weights
 # First dimension is assumed time by program... not true if timseries is of interest, 
@@ -225,9 +226,9 @@ print("\n\n",            file=open(outfile,"a"))
 print("Timeseries Normalized by:", file=open(outfile,"a"))
 print("-------------------------", file=open(outfile,"a"))
 if args.normalize:
-    print(",\t".join([str(x) for x in np.std(eof_data, axis=0)]), file=open(outfile,"a"))
+    print(",\t".join([str(x) for x in eof_data_std]), file=open(outfile,"a"))
 else:
-    print("***Timeseries not normalized***")
+    print("***Timeseries not normalized***", file=open(outfile,"a"))
 print("\n\n",            file=open(outfile,"a"))
 
 
