@@ -7,6 +7,7 @@ Input files are EPIC standard netCDF files.  Output files are EPIC standard netC
 Tested on python 3.6, 2.7
 
 # Based on python EOF analysis package:
+
 *** eofs V1.3.0***
 
 http://ajdawson.github.io/eofs/index.html   
@@ -19,9 +20,9 @@ Many results are not relevant here for these purposes from this package and are 
 
 We expect to have the same number of EOF's / PCS's as we have timeseries
 
-
 ### Usage
-```
+
+``` 
 usage: EcoFOCI_eof.py [-h] [-o OUTFILE] [-s START_DATE] [-e END_DATE]
                       [--eof_num EOF_NUM] [--epic]
                       pfile varname config_file_name
@@ -49,24 +50,25 @@ optional arguments:
 ```
 
 #### Example
-```
+
+``` 
 EcoFOCI_eof.py test/14ck9a_curr_brg_subset_f35.point U_320 config/eof_config.yaml -s 20141005000000 -e 20150501000000 --epic
 ```
 
-Will run the analysis files listed in: `test/14ck9a_curr_brg_subset_f35.point`    
+Will run the analysis files listed in: `test/14ck9a_curr_brg_subset_f35.point`
+
 for the variable: U_320 (which will also select u_1205)   
-with the EPIC .nc file having properties specified by `config/eof_config.yaml`   
+with the EPIC .nc file having properties specified by `config/eof_config.yaml`
+
 starting at 2014-10-05 00:00:00   
 ending at 2015-05-01 00:00:00   
 and expecting  EPIC format
 
-```
+``` 
 EcoFOCI_eof.py test/14ck9a_curr_brg_subset_f35.point U_320 config/eof_config.yaml -s 20141005000000 -e 20150501000000 -eof_num=1 -o=test --epic
 ```
 
 is the same as the above but only returning the first EOF and naming the run 'test'
-
-
 
 PJS
 ---
