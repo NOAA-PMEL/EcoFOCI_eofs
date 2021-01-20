@@ -28,6 +28,7 @@ Additional requirements for this example:
 
 Addtional Notes:
     Tested on python=3.8
+    No longer supporting 2.x
 
 
 """
@@ -36,14 +37,19 @@ import argparse
 import datetime
 import sys
 
+# must be python 3.7+
+try:
+    assert sys.version_info > (3, 70)
+except AssertionError:
+    sys.exit("Must be running python 3.7+")
+
 import matplotlib.pyplot as plt
 import numpy as np
-from eofs.standard import Eof
-from netCDF4 import Dataset
-
 from calc.EPIC2Datetime import Datetime2EPIC, EPIC2Datetime, get_UDUNITS
+from eofs.standard import Eof
 from io_utils.ConfigParserLocal import get_config
 from io_utils.EcoFOCI_netCDF_write import NetCDF_Create_Timeseries
+from netCDF4 import Dataset
 
 __author__   = 'Shaun Bell'
 __email__    = 'shaun.bell@noaa.gov'
