@@ -28,6 +28,7 @@ Additional requirements for this example:
 
 Addtional Notes:
     Tested on python=3.8
+    No longer supporting 2.x
 
 
 """
@@ -35,6 +36,12 @@ Addtional Notes:
 import argparse
 import datetime
 import sys
+
+# must be python 3.7+
+try:
+    assert sys.version_info > (3, 70)
+except AssertionError:
+    sys.exit("Must be running python 3.7+")
 
 import matplotlib.pyplot as plt
 import numpy as np
