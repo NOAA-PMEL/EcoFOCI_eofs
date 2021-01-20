@@ -81,7 +81,9 @@ python ${progdir}EcoFOCI_eof.py ${pointer} U_320 ${progdir}config/eof_config.yam
 
 ## Requirements
 
-Found in the ci/requirements.txt
+Found in the ci/requirements.txt - these are kept up-to-date by a dependabot GHAction but are not currently tested against for every upgrade.
+
+The software was initially developed with ci/requirements.orig
 
 ## Legal Disclaimer
 
