@@ -5,3 +5,4 @@ numpy==1.19.5
 pandas==1.2.1
 netcdf4==1.5.5.1
 erddapy==0.9.0
+pyyaml
