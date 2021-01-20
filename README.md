@@ -8,7 +8,7 @@ Tested on python 3.6, 2.7
 
 ## Based on python EOF analysis package
 
-*** eofs V1.3.0***
+***eofs V1.3.0***
 
 [http://ajdawson.github.io/eofs/index.html](http://ajdawson.github.io/eofs/index.html)  
 [https://github.com/ajdawson/eofs](https://github.com/ajdawson/eofs)  
@@ -70,8 +70,7 @@ EcoFOCI_eof.py test/14ck9a_curr_brg_subset_f35.point U_320 config/eof_config.yam
 
 is the same as the above but only returning the first EOF and naming the run 'test'
 
-PJS
----
+**PJS**
 
 ```bash
 progdir=/full/path/to/dir/  
