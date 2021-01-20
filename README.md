@@ -4,7 +4,7 @@ This is a wrapper to smoothly analyze EcoFOCI timeseries data via EOF analysis.
 
 Input files are EPIC standard netCDF files.  Output files are EPIC standard netCDF files and summary text file.
 
-Tested on python 3.6, 2.7
+Tested on python 3.8
 
 ## Based on python EOF analysis package
 
@@ -83,7 +83,7 @@ python ${progdir}EcoFOCI_eof.py ${pointer} U_320 ${progdir}config/eof_config.yam
 
 Found in the ci/requirements.txt - these are kept up-to-date by a dependabot GHAction but are not currently tested against for every upgrade.
 
-The software was initially developed with ci/requirements.orig
+The software was initially developed with ci/requirements.orig but is not maintained against them.
 
 ## Legal Disclaimer
 
