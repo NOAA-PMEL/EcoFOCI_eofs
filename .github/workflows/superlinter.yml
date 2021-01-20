@@ -22,5 +22,8 @@ jobs:
         uses: github/super-linter@v3
         env:
           VALIDATE_XML: false  
+          VALIDATE_PYTHON_BLACK: false  
+          VALIDATE_PYTHON_PYLINT: false  
+          VALIDATE_PYTHON_FLAKE8: false  
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

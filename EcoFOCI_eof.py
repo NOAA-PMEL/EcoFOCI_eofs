@@ -24,32 +24,26 @@ Additional requirements for this example:
     - http://ajdawson.github.io/eofs/ 
     - http://doi.org/10.5334/jors.122 (journal article)
 
-    - developed using V 1.3.0
+    - developed using V 1.3.0 (updated to 1.4.0)
 
 Addtional Notes:
-    Tested on python=3.6
-    Print statements cause fail on 2.x (unless future import)
+    Tested on python=3.8
 
 
 """
-from __future__ import print_function
 
-#System Stack
 import argparse
 import datetime
 import sys
 
-#Science Stack
-from eofs.standard import Eof 
-import numpy as np
-from netCDF4 import Dataset
 import matplotlib.pyplot as plt
+import numpy as np
+from eofs.standard import Eof
+from netCDF4 import Dataset
 
-#User defined Stack
+from calc.EPIC2Datetime import Datetime2EPIC, EPIC2Datetime, get_UDUNITS
 from io_utils.ConfigParserLocal import get_config
 from io_utils.EcoFOCI_netCDF_write import NetCDF_Create_Timeseries
-from calc.EPIC2Datetime import EPIC2Datetime, get_UDUNITS, Datetime2EPIC
-
 
 __author__   = 'Shaun Bell'
 __email__    = 'shaun.bell@noaa.gov'

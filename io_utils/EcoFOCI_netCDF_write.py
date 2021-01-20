@@ -11,10 +11,9 @@
  2018-06-14: Stripped down version of EcoFOCI_Utilitis/io_utils
 """
 
-# Standard library.
-import datetime, os
+import datetime
+import os
 
-# Scientific stack.
 import numpy as np
 from netCDF4 import Dataset
 

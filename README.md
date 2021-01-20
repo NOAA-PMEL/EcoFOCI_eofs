@@ -6,13 +6,13 @@ Input files are EPIC standard netCDF files.  Output files are EPIC standard netC
 
 Tested on python 3.6, 2.7
 
-# Based on python EOF analysis package:
+## Based on python EOF analysis package
 
-*** eofs V1.3.0***
+***eofs V1.3.0***
 
-http://ajdawson.github.io/eofs/index.html   
-https://github.com/ajdawson/eofs   
-http://doi.org/10.5334/jors.122 - journal article   
+[http://ajdawson.github.io/eofs/index.html](http://ajdawson.github.io/eofs/index.html)  
+[https://github.com/ajdawson/eofs](https://github.com/ajdawson/eofs)  
+[http://doi.org/10.5334/jors.122](http://doi.org/10.5334/jors.122) - journal article  
 
 Many results are not relevant here for these purposes from this package and are available as analysis extensions.
 
@@ -22,7 +22,7 @@ We expect to have the same number of EOF's / PCS's as we have timeseries
 
 ### Usage
 
-``` 
+```text
 usage: EcoFOCI_eof.py [-h] [-o OUTFILE] [-s START_DATE] [-e END_DATE]
                       [--eof_num EOF_NUM] [--epic]
                       pfile varname config_file_name
@@ -51,37 +51,44 @@ optional arguments:
 
 #### Example
 
-``` 
+```bash
 EcoFOCI_eof.py test/14ck9a_curr_brg_subset_f35.point U_320 config/eof_config.yaml -s 20141005000000 -e 20150501000000 --epic
 ```
 
 Will run the analysis files listed in: `test/14ck9a_curr_brg_subset_f35.point`
 
-for the variable: U_320 (which will also select u_1205)   
+for the variable: U_320 (which will also select u_1205)  
 with the EPIC .nc file having properties specified by `config/eof_config.yaml`
 
-starting at 2014-10-05 00:00:00   
-ending at 2015-05-01 00:00:00   
+starting at 2014-10-05 00:00:00  
+ending at 2015-05-01 00:00:00  
 and expecting  EPIC format
 
-``` 
+```bash
 EcoFOCI_eof.py test/14ck9a_curr_brg_subset_f35.point U_320 config/eof_config.yaml -s 20141005000000 -e 20150501000000 -eof_num=1 -o=test --epic
 ```
 
 is the same as the above but only returning the first EOF and naming the run 'test'
 
-PJS
----
+**PJS**
 
-progdir=/full/path/to/dir/   
+```bash
+progdir=/full/path/to/dir/  
 pointer=14ck9a_curr_brg_subset_f35.pavlof.point
 
 python ${progdir}EcoFOCI_eof.py ${pointer} U_320 ${progdir}config/eof_config.yaml -s 20141005000000 -e 20150501000000 --epic -o eof_results
+```
 
------
+## Requirements
 
-################
+Found in the ci/requirements.txt - these are kept up-to-date by a dependabot GHAction but are not currently tested against for every upgrade.
 
-Legal Disclaimer
+The software was initially developed with ci/requirements.orig
 
-This repository is a scientific product and is not official communication of the National Oceanic and Atmospheric Administration (NOAA), or the United States Department of Commerce (DOC). All NOAA GitHub project code is provided on an 'as is' basis and the user assumes responsibility for its use. Any claims against the DOC or DOC bureaus stemming from the use of this GitHub project will be governed by all applicable Federal law. Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recommendation, or favoring by the DOC. The DOC seal and logo, or the seal and logo of a DOC bureau, shall not be used in any manner to imply endorsement of any commercial product or activity by the DOC or the United States Government.
+## Legal Disclaimer
+
+This repository is a scientific product and is not official communication of the National Oceanic and Atmospheric Administration (NOAA), or the United States Department of Commerce (DOC).
+All NOAA GitHub project code is provided on an 'as is' basis and the user assumes responsibility for its use.
+Any claims against the DOC or DOC bureaus stemming from the use of this GitHub project will be governed by all applicable Federal law.
+Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recommendation, or favoring by the DOC.
+The DOC seal and logo, or the seal and logo of a DOC bureau, shall not be used in any manner to imply endorsement of any commercial product or activity by the DOC or the United States Government.
