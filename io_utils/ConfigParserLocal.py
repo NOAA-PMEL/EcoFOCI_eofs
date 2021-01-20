@@ -23,9 +23,10 @@
 
 """
 
-#System Stack
 import json
+
 import yaml
+
 
 def get_config(infile, ftype='yaml'):
     """ Input - full path to config file
