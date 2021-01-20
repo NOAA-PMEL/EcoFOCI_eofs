@@ -45,12 +45,12 @@ except AssertionError:
 
 import matplotlib.pyplot as plt
 import numpy as np
-from eofs.standard import Eof
-from netCDF4 import Dataset
-
 from calc.EPIC2Datetime import Datetime2EPIC, EPIC2Datetime, get_UDUNITS
+from eofs.standard import Eof
+
 from io_utils.ConfigParserLocal import get_config
 from io_utils.EcoFOCI_netCDF_write import NetCDF_Create_Timeseries
+from netCDF4 import Dataset
 
 __author__   = 'Shaun Bell'
 __email__    = 'shaun.bell@noaa.gov'
