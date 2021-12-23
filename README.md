@@ -10,7 +10,7 @@ Tested on python 3.8
 
 ***eofs V1.3.0***
 
-[http://ajdawson.github.io/eofs/index.html](http://ajdawson.github.io/eofs/index.html)  
+[http://ajdawson.github.io/eofs/index.html](https://ajdawson.github.io/eofs/latest/)  
 [https://github.com/ajdawson/eofs](https://github.com/ajdawson/eofs)  
 [http://doi.org/10.5334/jors.122](http://doi.org/10.5334/jors.122) - journal article  
 
