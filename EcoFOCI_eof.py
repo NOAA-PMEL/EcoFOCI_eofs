@@ -39,7 +39,7 @@ import sys
 
 # must be python 3.7+
 try:
-    assert sys.version_info > (3, 70)
+    assert sys.version_info > (3, 7)
 except AssertionError:
     sys.exit("Must be running python 3.7+")
 
