@@ -2,7 +2,7 @@ eofs
 python>=3.8
 matplotlib==3.9.0
 numpy==2.0.0
-netcdf4==1.6.5
+netcdf4==1.7.0
 pandas==2.2.2
 erddapy==2.2.0
 pyyaml
