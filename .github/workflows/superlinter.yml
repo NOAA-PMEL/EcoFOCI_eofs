@@ -21,6 +21,7 @@ jobs:
       - name: Run Super-Linter
         uses: super-linter/super-linter@v7.0.0
         env:
+          FILTER_REGEX_EXCLUDE: (.*sh|.git/.*|.Doc/Images/.*|.Tests/.*/Logs/.*|.Tests/.*/testdata/.*)
           VALIDATE_XML: false  
           VALIDATE_JSCPD: false  
           VALIDATE_PYTHON_BLACK: false  
