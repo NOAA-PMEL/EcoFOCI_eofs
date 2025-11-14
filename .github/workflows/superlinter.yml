@@ -23,7 +23,7 @@ jobs:
           
       # Runs the Super-Linter action
       - name: Run Super-Linter
-        uses: super-linter/super-linter@v8.1.0
+        uses: super-linter/super-linter@v8.2.1
         env:
           FILTER_REGEX_EXCLUDE: (.*sh|.git/.*|.Doc/Images/.*|.Tests/.*/Logs/.*|.Tests/.*/testdata/.*)
           VALIDATE_XML: false  
