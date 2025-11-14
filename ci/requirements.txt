@@ -1,6 +1,6 @@
 eofs
 python>=3.8
-matplotlib==3.10.1
+matplotlib==3.10.7
 numpy==2.3.4
 netcdf4==1.7.3
 pandas==2.3.3
