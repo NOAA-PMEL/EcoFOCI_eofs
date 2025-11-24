@@ -4,5 +4,5 @@ matplotlib==3.10.7
 numpy==2.3.5
 netcdf4==1.7.3
 pandas==2.3.3
-erddapy==2.2.4
+erddapy==2.3.0
 pyyaml
