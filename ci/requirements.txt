@@ -3,6 +3,6 @@ python>=3.8
 matplotlib==3.11.2
 numpy==2.5.4
 netcdf4==1.7.5.1
-pandas==3.0.6
+pandas==3.1.0
 erddapy==2026.6.12
 pyyaml
